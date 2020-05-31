@@ -1,0 +1,24 @@
+{
+  "name": "employee-tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jpd61/employee-tracker.git"
+  },
+  "author": "Joseph DeWoody",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jpd61/employee-tracker/issues"
+  },
+  "homepage": "https://github.com/jpd61/employee-tracker#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^7.1.0",
+    "mysql2": "^2.1.0"
+  }
+}
