@@ -5,9 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "migrate": "mysql2 db/employees.db < db/schema.sql",
-    "seed": "mysql2 db/employees.db < db/seeds.sql",
-    "db": "mysql2 db/employees.db",
+    "migrate": "mysql db/employees.db < db/schema.sql",
+    "seed": "mysql db/employees.db < db/seeds.sql",
+    "db": "mysql db/employees.db",
     "start": "node server.js"
   },
   "repository": {
@@ -21,9 +21,12 @@
   },
   "homepage": "https://github.com/jpd61/employee-tracker#readme",
   "dependencies": {
+    "chalk": "^4.0.0",
     "console.table": "^0.10.0",
     "express": "^4.17.1",
+    "figlet": "^1.4.0",
     "inquirer": "^7.1.0",
-    "mysql2": "^2.1.0"
+    "mysql2": "^2.1.0",
+    "validator": "^13.0.0"
   }
 }
