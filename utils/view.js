@@ -1,9 +1,10 @@
-// Dependencies
+// Require Dependencies
 const inquirer = require('inquirer');
 const cTable = require('console.table');
 const application = require('../server');
 const connection = require('./config');
 
+// View
 const view = {
   viewAllEmployees() {
     let query =     `SELECT employee.id, employee.first_name, employee.last_name, role.title, department.department_name AS 'department', role.salary 

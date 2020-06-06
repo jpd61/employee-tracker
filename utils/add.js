@@ -1,4 +1,4 @@
-// Dependencies
+// Require Dependencies
 const inquirer = require('inquirer');
 const chalk = require('chalk');
 const connection = require('./config');
@@ -67,7 +67,7 @@ const add = {
               }
             });
 
-            // Looping through emmployee SELECT query to set manager ID for new employee
+            // Looping through employee SELECT query to set manager ID for new employee
             res.forEach((employee) => {
               if (
                 answer.managerName ===
@@ -77,7 +77,7 @@ const add = {
               }
             });
 
-            // Inserting new employee into DB
+            // Inserting new employee into Database
             let query = `INSERT INTO employee (first_name, last_name, role_id, manager_id) `;
             query += `VALUES (?, ?, ?, ?)`;
             let params = [answer.firstName, answer.lastName, roleId, managerId];

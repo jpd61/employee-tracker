@@ -1,4 +1,4 @@
-// Dependencies
+// Require Dependencies
 const mysql = require('mysql2');
 
 // Connection to server

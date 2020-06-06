@@ -1,4 +1,4 @@
-// Dependencies
+// Require Dependencies
 const inquirer = require('inquirer');
 const chalk = require('chalk');
 const connection = require('./config');
@@ -29,7 +29,7 @@ const remove = {
         .then((answer) => {
           let employeeId;
 
-          // Looping through SELECT query to match chosen employee with employee name in db -- once match is found save employee ID to memory for use in DELETE query
+          // Looping through SELECT query to match chosen employee with employee name in db
           res.forEach((employee) => {
             if (
               answer.chosenEmployee ===
