@@ -1,5 +1,5 @@
 
-<h1 align="center">Employee Tracker Using MySQL, Inquirer and Node.js 👋</h1>
+<h1 align="center">Employee Tracker Using MySQL, Inquirer, Console.Table and Node.js 👋</h1>
   
 <p align="center">
     <img src="https://img.shields.io/github/repo-size/jpd61/employee-tracker" />
@@ -86,8 +86,6 @@ THEN I am prompted to select an employee to update and their new role and this i
 `npm install mysql2`
 
 `npm install console-table`
-
-`npm install express`
 
 `npm install figlet`
 
