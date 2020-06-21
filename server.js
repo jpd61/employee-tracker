@@ -95,7 +95,7 @@ const promptUser = () => {
             addDepartment();
         }
 
-        if (choices === 'View Department Budget') {
+        if (choices === 'View Department Budgets') {
             viewDepartmentBudget();
         }
 
@@ -231,12 +231,11 @@ const viewDepartmentBudget = () => {
                   department.department_name AS department,
                   SUM(salary) AS budget
                   FROM  role  
-                  INNER JOIN department ON role.department_id = department.id GROUP BY  department_id`;
+                  INNER JOIN department ON role.department_id = department.id GROUP BY  role.department_id`;
 
-  connection.promise().query(sql, (error, response) => {
-
+  connection.query(sql, (error, response) => {
     if (error) throw error;
-          console.table(response);
+        console.table(response);
           console.log(
             chalk.yellow.bold(
               `====================================================================================`
