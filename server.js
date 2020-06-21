@@ -129,25 +129,6 @@ const viewAllEmployees = () => {
   });
 };
 
-// View all Employees by Department
-const viewEmployeesByDepartment = () => {
-  const sql =     `SELECT employee.first_name, 
-                  employee.last_name, 
-                  department.department_name AS department
-                  FROM employee 
-                  LEFT JOIN role ON employee.role_id = role.id 
-                  LEFT JOIN department ON role.department_id = department.id`;
-  connection.query(sql, (error, response) => {
-    if (error) throw error;
-      console.log(chalk.yellow.bold(`====================================================================================`));
-      console.log(`                              ` + chalk.green.bold(`Employees by Department:`));
-      console.log(chalk.yellow.bold(`====================================================================================`));
-      console.table(response);
-      console.log(chalk.yellow.bold(`====================================================================================`));
-      promptUser();
-    });
-};
-
 // View all Roles
 const viewAllRoles = () => {
   console.log(chalk.yellow.bold(`====================================================================================`));
@@ -176,6 +157,25 @@ const viewAllDepartments = () => {
     console.log(chalk.yellow.bold(`====================================================================================`));
     promptUser();
   });
+};
+
+// View all Employees by Department
+const viewEmployeesByDepartment = () => {
+  const sql =     `SELECT employee.first_name, 
+                  employee.last_name, 
+                  department.department_name AS department
+                  FROM employee 
+                  LEFT JOIN role ON employee.role_id = role.id 
+                  LEFT JOIN department ON role.department_id = department.id`;
+  connection.query(sql, (error, response) => {
+    if (error) throw error;
+      console.log(chalk.yellow.bold(`====================================================================================`));
+      console.log(`                              ` + chalk.green.bold(`Employees by Department:`));
+      console.log(chalk.yellow.bold(`====================================================================================`));
+      console.table(response);
+      console.log(chalk.yellow.bold(`====================================================================================`));
+      promptUser();
+    });
 };
 
 //View all Departments by Budget
@@ -257,8 +257,8 @@ const addEmployee = () => {
                     choices: managers
                   }
                 ])
-                  .then(mgrChoice => {
-                    const manager = mgrChoice.manager;
+                  .then(managerChoice => {
+                    const manager = managerChoice.manager;
                     crit.push(manager);
                     const sql =   `INSERT INTO employee (first_name, last_name, role_id, manager_id)
                                   VALUES (?, ?, ?, ?)`;
@@ -285,21 +285,21 @@ const addRole = () => {
       inquirer
         .prompt([
           {
-            name: 'deptName',
+            name: 'departmentName',
             type: 'list',
             message: 'Which department is this new role in?',
             choices: deptNamesArray
           }
         ])
         .then((answer) => {
-          if (answer.deptName === 'Create Department') {
-            this.addDept();
+          if (answer.departmentName === 'Create Department') {
+            this.addDepartment();
           } else {
             addRoleResume(answer);
           }
         });
 
-      const addRoleResume = (deptData) => {
+      const addRoleResume = (departmentData) => {
         inquirer
           .prompt([
             {
@@ -455,15 +455,13 @@ const updateEmployeeManager = () => {
           let employeeId, managerId;
           response.forEach((employee) => {
             if (
-              answer.chosenEmployee ===
-              `${employee.first_name} ${employee.last_name}`
+              answer.chosenEmployee === `${employee.first_name} ${employee.last_name}`
             ) {
               employeeId = employee.id;
             }
 
             if (
-              answer.newManager ===
-              `${employee.first_name} ${employee.last_name}`
+              answer.newManager === `${employee.first_name} ${employee.last_name}`
             ) {
               managerId = employee.id;
             }
