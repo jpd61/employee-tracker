@@ -37,16 +37,16 @@ const promptUser = () => {
         message: 'Please select an option:',
         choices: [
           'View All Employees',
+          'View All Roles',
+          'View Department Budget',
           'View All Employees By Department',
-          'Add Employee',
-          'Remove Employee',
           'Update Employee Role',
           'Update Employee Manager',
-          'View All Roles',
+          'Add Employee',
           'Add Role',
-          'Remove Role',
           'Add Department',
-          'View Department Budget',
+          'Remove Employee',
+          'Remove Role',
           'Remove Department',
           'Exit'
       ]
