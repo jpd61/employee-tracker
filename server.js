@@ -1,6 +1,6 @@
 const connection = require('./config/connection');
 const inquirer = require('inquirer');
-const cTable = require('console.table');
+const console.table = require('console.table');
 const chalk = require('chalk');
 const figlet = require('figlet');
 const validate = require('./javascript/validate');
@@ -322,7 +322,7 @@ const addEmployee = () => {
                     const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id)
                     VALUES (?, ?, ?, ?)`;
 
-                    connection.query(sql, params, (error, result) => {
+                    connection.query(sql, params, (error) => {
                     if (error) throw error;
                     console.log("Employee has been added!")
 
@@ -393,7 +393,7 @@ const addRole = () => {
             let sql = `INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)`;
             let params = [createdRole, answer.salary, deptId];
 
-            connection.promise().query(sql, params, (error, response) => {
+            connection.promise().query(sql, params, (error) => {
               if (error) throw error;
 
               console.log(``);
@@ -492,7 +492,7 @@ const updateEmployeeRole = () => {
             connection.query(
               sql,
               [newTitleId, employeeId],
-              (error, response) => {
+              (error) => {
                 if (error) throw error;
 
                 console.log(``);
@@ -564,7 +564,7 @@ const updateEmployeeManager = () => {
             connection.query(
               sql,
               [managerId, employeeId],
-              (error, response) => {
+              (error) => {
                 if (error) throw error;
 
                 console.log(``);
@@ -614,7 +614,7 @@ const removeEmployee = () => {
           });
 
           let sql = `DELETE FROM employee WHERE employee.id = ?`;
-          connection.query(sql, [employeeId], (error, response) => {
+          connection.query(sql, [employeeId], (error) => {
             if (error) throw error;
 
             console.log(``);
@@ -657,7 +657,7 @@ const removeRole = () => {
           });
 
           let sql = `DELETE FROM role WHERE role.id = ?`;
-          connection.promise().query(sql, [roleId], (error, response) => {
+          connection.promise().query(sql, [roleId], (error) => {
             if (error) throw error;
 
             console.log(``);
@@ -700,7 +700,7 @@ const removeDept = () => {
           });
 
           let sql = `DELETE FROM department WHERE department.id = ?`;
-          connection.promise().query(sql, [deptId], (error, response) => {
+          connection.promise().query(sql, [deptId], (error) => {
             if (error) throw error;
 
             console.log(``);
