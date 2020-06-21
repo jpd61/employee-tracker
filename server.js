@@ -1,6 +1,6 @@
 const connection = require('./config/connection');
 const inquirer = require('inquirer');
-const console.table = require('console.table');
+const cTable = require('console.table');
 const chalk = require('chalk');
 const figlet = require('figlet');
 const validate = require('./javascript/validate');
@@ -38,7 +38,7 @@ const promptUser = () => {
         choices: [
           'View All Employees',
           'View All Roles',
-          'View Department Budget',
+          'View Department Budgets',
           'View All Employees By Department',
           'Update Employee Role',
           'Update Employee Manager',
@@ -363,7 +363,6 @@ const addRole = () => {
           }
         });
 
-      // Resumes process of adding new role
       const addRoleResume = (deptData) => {
         inquirer
           .prompt([
@@ -495,9 +494,17 @@ const updateEmployeeRole = () => {
               (error) => {
                 if (error) throw error;
 
-                console.log(``);
+                console.log(
+                  chalk.yellow.bold(
+                    `====================================================================================`
+                  )
+                );
                 console.log(chalk.greenBright(`Employee Role Updated`));
-                console.log(``);
+                console.log(
+                  chalk.yellow.bold(
+                    `====================================================================================`
+                  )
+                );
 
                 promptUser();
               }
