@@ -1,9 +1,7 @@
-// Require Dependencies
 const mysql = require('mysql2');
 
-require('dotenv').config()
+require('dotenv').config();
 
-// Connection to server
 const connection = mysql.createConnection({
   host: 'localhost',
   port: 3306,
@@ -12,5 +10,4 @@ const connection = mysql.createConnection({
   database: 'employees'
 });
 
-// Export
 module.exports = connection;
