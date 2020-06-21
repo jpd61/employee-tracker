@@ -1,7 +1,5 @@
-// Require Dependencies
 const validator = require('validator');
 
-// Validation functionality
 const validate = {
   validateString(str) {
     return str !== '' || 'Please enter a valid response.';
