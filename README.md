@@ -27,13 +27,13 @@
 
 🔍 A node.js application that uses user input from inquirer to populate an employee tracker database displaying members of a company.
 
-![DeWoody Employee Tracker](./title.PNG)
+![DeWoody Employee Tracker](./assets/title.PNG)
   
 💻 Below is the gif showing the functionality of the application:
   
-![DeWoody Employee Tracker](./employee-tracker.gif)
+![DeWoody Employee Tracker](./assets/employee-tracker.gif)
   
-🎥 The full movie file showing functionality of the application can be found [here](./employee-tracker.webm)  
+🎥 The full movie file showing functionality of the application can be found [here](./assets/employee-tracker.webm)  
   
 ## User Story
   
@@ -90,6 +90,10 @@ THEN I am prompted to select an employee to update and their new role and this i
 `npm install figlet`
 
 `npm install chalk`
+
+`npm install nodemon`
+
+`npm install validator`
   
 ## Usage
 💻   
