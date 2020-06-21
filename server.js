@@ -116,7 +116,7 @@ const viewAllEmployees = () => {
                   employee.first_name, 
                   employee.last_name, 
                   role.title, 
-                  department.department_name AS 'department', 
+                  department.dept_name AS 'department', 
                   role.salary
                   FROM employee, role, department 
                   WHERE department.id = role.department_id 
@@ -150,7 +150,7 @@ const viewAllEmployees = () => {
 const viewEmployeesByDept = () => {
   const sql = `SELECT employee.first_name, 
               employee.last_name, 
-              department.department_name AS department
+              department.dept_name AS department
               FROM employee 
               LEFT JOIN role ON employee.role_id = role.id 
             LEFT JOIN department ON role.department_id = department.id`;
@@ -194,7 +194,7 @@ const viewAllRoles = () => {
     )
   );
 
-  const sql = `SELECT role.id, role.title, department.department_name AS department
+  const sql = `SELECT role.id, role.title, department.dept_name AS department
                 FROM role
                 INNER JOIN department ON role.department_id = department.id`;
 
@@ -217,7 +217,7 @@ const viewAllRoles = () => {
 
 const viewDeptBudget = () => {
   const sql =   `SELECT department_id AS id, 
-                department.department_name AS department,
+                department.dept_name AS department,
                 SUM(salary) AS budget
                 FROM  role  
                 JOIN department ON role.department_id = department.id GROUP BY  department_id`;
@@ -338,13 +338,13 @@ const addEmployee = () => {
 const addRole = () => {
   connection.promise().query('SELECT * FROM department', (error, response) => {
       if (error) throw error;
-      let deptNamesArr = [];
+      let deptNamesArray = [];
 
       response.forEach((dept) => {
-        deptNamesArr.push(dept.department_name);
+        deptNamesArray.push(dept.dept_name);
       });
 
-      deptNamesArr.push('Create Department');
+      deptNamesArray.push('Create Department');
 
       inquirer
         .prompt([
@@ -352,7 +352,7 @@ const addRole = () => {
             name: 'deptName',
             type: 'list',
             message: 'Which department is this new role in?',
-            choices: deptNamesArr
+            choices: deptNamesArray
           }
         ])
         .then((answer) => {
@@ -384,7 +384,7 @@ const addRole = () => {
             let deptId;
 
             response.forEach((dept) => {
-              if (deptData.deptName === dept.department_name) {
+              if (deptData.deptName === dept.dept_name) {
                 deptId = dept.id;
               }
             });
@@ -395,9 +395,17 @@ const addRole = () => {
             connection.promise().query(sql, params, (error) => {
               if (error) throw error;
 
-              console.log(``);
+              console.log(
+                chalk.yellow.bold(
+                  `====================================================================================`
+                )
+              );
               console.log(chalk.greenBright(`Role successfully created!`));
-              console.log(``);
+              console.log(
+                chalk.yellow.bold(
+                  `====================================================================================`
+                )
+              );
 
               promptUser();
             });
@@ -417,7 +425,7 @@ const addDept = () => {
         }
       ])
       .then((answer) => {
-        let sql = `INSERT INTO department (department_name) VALUES (?)`;
+        let sql = `INSERT INTO department (dept_name) VALUES (?)`;
 
         connection.query(sql, answer.newDepartment, (error, response) => {
           if (error) throw error;
@@ -438,10 +446,10 @@ const updateEmployeeRole = () => {
 
     connection.promise().query(sql, (error, response) => {
       if (error) throw error;
-      let employeeNamesArr = [];
+      let employeeNamesArray = [];
 
       response.forEach((employee) => {
-        employeeNamesArr.push(`${employee.first_name} ${employee.last_name}`);
+        employeeNamesArray.push(`${employee.first_name} ${employee.last_name}`);
       });
 
       let sql = `SELECT role.id, role.title FROM role`;
@@ -459,7 +467,7 @@ const updateEmployeeRole = () => {
               name: 'chosenEmployee',
               type: 'list',
               message: 'Which employee has a new role?',
-              choices: employeeNamesArr
+              choices: employeeNamesArray
             },
             {
               name: 'chosenRole',
@@ -519,10 +527,10 @@ const updateEmployeeManager = () => {
                     FROM employee`;
 
      connection.promise().query(sql, (error, response) => {
-      let employeeNamesArr = [];
+      let employeeNamesArray = [];
 
       response.forEach((employee) => {
-        employeeNamesArr.push(`${employee.first_name} ${employee.last_name}`);
+        employeeNamesArray.push(`${employee.first_name} ${employee.last_name}`);
       });
 
       inquirer
@@ -531,13 +539,13 @@ const updateEmployeeManager = () => {
             name: 'chosenEmployee',
             type: 'list',
             message: 'Which employee has a new manager?',
-            choices: employeeNamesArr
+            choices: employeeNamesArray
           },
           {
             name: 'newManager',
             type: 'list',
             message: 'Who is their new manager?',
-            choices: employeeNamesArr
+            choices: employeeNamesArray
           }
         ])
         .then((answer) => {
@@ -593,10 +601,10 @@ const removeEmployee = () => {
 
     connection.promise().query(sql, (error, response) => {
       if (error) throw error;
-      let employeeNamesArr = [];
+      let employeeNamesArray = [];
 
       response.forEach((employee) => {
-        employeeNamesArr.push(`${employee.first_name} ${employee.last_name}`);
+        employeeNamesArray.push(`${employee.first_name} ${employee.last_name}`);
       });
 
       inquirer
@@ -605,7 +613,7 @@ const removeEmployee = () => {
             name: 'chosenEmployee',
             type: 'list',
             message: 'Which employee would you like to remove?',
-            choices: employeeNamesArr
+            choices: employeeNamesArray
           }
         ])
         .then((answer) => {
@@ -678,14 +686,14 @@ const removeRole = () => {
   };
 
 const removeDept = () => {
-    let sql = `SELECT department.id, department.department_name FROM department`;
+    let sql = `SELECT department.id, department.dept_name FROM department`;
 
     connection.promise().query(sql, (error, response) => {
       if (error) throw error;
-      let deptNamesArr = [];
+      let deptNamesArray = [];
 
       response.forEach((dept) => {
-        deptNamesArr.push(dept.department_name);
+        deptNamesArray.push(dept.dept_name);
       });
 
       inquirer
@@ -694,14 +702,14 @@ const removeDept = () => {
             name: 'chosenDept',
             type: 'list',
             message: 'Which department would you like to remove?',
-            choices: deptNamesArr
+            choices: deptNamesArray
           }
         ])
         .then((answer) => {
           let deptId;
 
           response.forEach((dept) => {
-            if (answer.chosenDept === dept.department_name) {
+            if (answer.chosenDept === dept.dept_name) {
               deptId = dept.id;
             }
           });
