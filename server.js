@@ -119,7 +119,7 @@ const viewAllEmployees = () => {
                   department.dept_name AS 'department', 
                   role.salary
                   FROM employee, role, department 
-                  WHERE department.id = role.department_id 
+                  WHERE department.id = role.dept_id 
                   AND role.id = employee.role_id
                   ORDER BY employee.id ASC`;
 
@@ -153,7 +153,7 @@ const viewEmployeesByDept = () => {
               department.dept_name AS department
               FROM employee 
               LEFT JOIN role ON employee.role_id = role.id 
-            LEFT JOIN department ON role.department_id = department.id`;
+            LEFT JOIN department ON role.dept_id = department.id`;
 
       connection.query(sql, (error, response) => {
           if (error) throw error;
@@ -196,7 +196,7 @@ const viewAllRoles = () => {
 
   const sql = `SELECT role.id, role.title, department.dept_name AS department
                 FROM role
-                INNER JOIN department ON role.department_id = department.id`;
+                INNER JOIN department ON role.dept_id = department.id`;
 
   connection.promise().query(sql, (error, response) => {
     if (error) throw error;
@@ -220,7 +220,7 @@ const viewDeptBudget = () => {
                 department.dept_name AS department,
                 SUM(salary) AS budget
                 FROM  role  
-                JOIN department ON role.department_id = department.id GROUP BY  department_id`;
+                JOIN department ON role.dept_id = department.id GROUP BY department_id`;
 
   connection.promise().query(sql, (error, response) => {
 
@@ -389,7 +389,7 @@ const addRole = () => {
               }
             });
 
-            let sql = `INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)`;
+            let sql = `INSERT INTO role (title, salary, dept_id) VALUES (?, ?, ?)`;
             let params = [createdRole, answer.salary, deptId];
 
             connection.promise().query(sql, params, (error) => {
@@ -442,7 +442,7 @@ const addDept = () => {
 
 const updateEmployeeRole = () => {
     let sql =     `SELECT employee.id, employee.first_name, employee.last_name, role.id AS "role_id"
-                    FROM employee, role, department WHERE department.id = role.department_id AND role.id = employee.role_id`;
+                    FROM employee, role, department WHERE department.id = role.dept_id AND role.id = employee.role_id`;
 
     connection.promise().query(sql, (error, response) => {
       if (error) throw error;
@@ -544,7 +544,7 @@ const updateEmployeeManager = () => {
           {
             name: 'newManager',
             type: 'list',
-            message: 'Who is their new manager?',
+            message: 'Who is their manager?',
             choices: employeeNamesArray
           }
         ])
@@ -582,9 +582,17 @@ const updateEmployeeManager = () => {
               (error) => {
                 if (error) throw error;
 
-                console.log(``);
-                console.log(chalk.greenBright(`Employee Manager Updated`));
-                console.log(``);
+                console.log(
+                  chalk.yellow.bold(
+                    `====================================================================================`
+                  )
+                );
+                console.log(chalk.redBright(`Employee Manager Updated`));
+                console.log(
+                  chalk.yellow.bold(
+                    `====================================================================================`
+                  )
+                );
 
                 promptUser();
               }
@@ -632,9 +640,17 @@ const removeEmployee = () => {
           connection.query(sql, [employeeId], (error) => {
             if (error) throw error;
 
-            console.log(``);
+            console.log(
+              chalk.yellow.bold(
+                `====================================================================================`
+              )
+            );
             console.log(chalk.redBright(`Employee Successfully Removed`));
-            console.log(``);
+            console.log(
+              chalk.yellow.bold(
+                `====================================================================================`
+              )
+            );
 
             promptUser();
           });
@@ -718,9 +734,17 @@ const removeDept = () => {
           connection.promise().query(sql, [deptId], (error) => {
             if (error) throw error;
 
-            console.log(``);
-            console.log(chalk.greenBright(`Department Successfully Removed`));
-            console.log(``);
+            console.log(
+              chalk.yellow.bold(
+                `====================================================================================`
+              )
+            );
+            console.log(chalk.redBright(`Department Successfully Removed`));
+            console.log(
+              chalk.yellow.bold(
+                `====================================================================================`
+              )
+            );
 
             promptUser();
           });
